@@ -25,6 +25,7 @@ import {
   DebugInstructions,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import Video from 'react-native-video';
 
 const App: () => React$Node = () => {
   const [value, onChangeText] = React.useState('Useless Placeholder');
@@ -67,13 +68,25 @@ const App: () => React$Node = () => {
               </View>
             </View>
             {/* Category item */}
-            <View style={styles.session}></View>
+            <View style={styles.session}>
+              <Video
+                source={{uri: "https://vjs.zencdn.net/v/oceans.mp4"}}   // Can be a URL or a local file.
+                style={styles.backgroundVideo}
+                controls={true}
+                repeat={true}
+                posterResizeMode="repeat"
+              />
+            </View>
             {/* Coupon free */}
-            <View style={styles.session}></View>
+            <View style={styles.session}>
+            </View>
             {/* List today favorite*/}
             <View style={styles.session}></View>
             {/* List item */}
             <View style={styles.session}></View>
+            <View style={styles.session}>
+
+            </View>
           </ScrollView>
         </View>
       </SafeAreaView>
@@ -114,6 +127,11 @@ const styles = StyleSheet.create({
     flex: 1,
     resizeMode: "cover",
     justifyContent: "center"
+  },
+  backgroundVideo: {
+    backgroundColor: "#fff",
+    width: "100%",
+    height: 300
   }
 });
 
