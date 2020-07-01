@@ -5,6 +5,7 @@ import {
   Dimensions,
   StyleSheet,
 } from "react-native";
+import Video from 'react-native-video';
 
 const { width } = Dimensions.get('window');
 export default class Home extends React.Component {
@@ -19,7 +20,12 @@ export default class Home extends React.Component {
     const {paused} = this.state;
     return (
       <View style={styles.container}>
-        <Text>Hello My</Text>
+        <View style={{width, height: width * .6, backgroundColor: 'black'}}>
+          <Video
+            source={{uri: "https://vjs.zencdn.net/v/oceans.mp4"}}   // Can be a URL or a local file.
+            style={styles.backgroundVideo}
+          />
+        </View>
       </View>
     )
   }
@@ -31,5 +37,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignContent: 'center',
     alignItems: 'center'
+  },
+  backgroundVideo: {
+    backgroundColor: "#fff",
+    width: "100%",
+    height: "100%"
   }
 })
