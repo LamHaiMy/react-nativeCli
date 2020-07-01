@@ -4,4 +4,6 @@
 2. Setup enviroment react native cli on mode React Native CLI Quickstart
   https://reactnative.dev/docs/environment-setup
 3. Component react native for UI
-https://reactnative.dev/docs/safeareaview
+  https://reactnative.dev/docs/safeareaview
+4. Icon
+  https://aboutreact.com/react-native-vector-icons/
