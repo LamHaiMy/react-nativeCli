@@ -16,6 +16,7 @@ import {
   StatusBar,
   TextInput,
   ImageBackground,
+  Dimensions,
 } from 'react-native';
 
 import {
@@ -26,6 +27,8 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 import Video from 'react-native-video';
+
+const { width } = Dimensions.get('window');
 
 const App: () => React$Node = () => {
   const [value, onChangeText] = React.useState('Useless Placeholder');
@@ -72,13 +75,16 @@ const App: () => React$Node = () => {
               <Video
                 source={{uri: "https://vjs.zencdn.net/v/oceans.mp4"}}   // Can be a URL or a local file.
                 style={styles.backgroundVideo}
-                controls={true}
-                repeat={true}
-                posterResizeMode="repeat"
+                controls={true} // Show control
+                repeat={false} //Determine whether to repeat the video when the end is reached
+                poster="https://baconmockup.com/300/200/"
+                posterResizeMode="cover"
               />
             </View>
             {/* Coupon free */}
-            <View style={styles.session}>
+            <View style={{ width, height: width * .6, backgroundColor: 'black'}}>
+              <Video
+              ></Video>
             </View>
             {/* List today favorite*/}
             <View style={styles.session}></View>
@@ -131,7 +137,7 @@ const styles = StyleSheet.create({
   backgroundVideo: {
     backgroundColor: "#fff",
     width: "100%",
-    height: 300
+    height: 200
   }
 });
 
