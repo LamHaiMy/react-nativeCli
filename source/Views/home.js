@@ -17,11 +17,12 @@ export default class Home extends React.Component {
     this.state = {
       paused: false,
       overlay: false,
+      muted: false,
     };
   }
 
   render = () => {
-    const {paused, overlay} = this.state;
+    const {paused, overlay, muted} = this.state;
     return (
       <View style={styles.container}>
         <View style={{width, height: width * .6, backgroundColor: 'black'}}>
@@ -30,6 +31,8 @@ export default class Home extends React.Component {
             source={{uri: "https://vjs.zencdn.net/v/oceans.mp4"}}   // Can be a URL or a local file.
             style={styles.backgroundVideo}
             resizeMode='cover'
+            paused={paused}
+            muted={muted}
             onLoad={this.load}
             onProgress={this.progress}
           />
@@ -37,8 +40,9 @@ export default class Home extends React.Component {
             {
               !overlay ? <View style={{...styles.overlaySet, backgroundColor: '#0006'}}>
                 <Icon name='backward' style={styles.icon} onPress={this.backward}></Icon>
-                <Icon name={paused ? 'play' : 'pause'} style={styles.icon} ></Icon>
+                <Icon name={paused ? 'play' : 'pause'} style={styles.icon} onPress={() => this.setState({paused: !paused})}></Icon>
                 <Icon name='forward' style={styles.icon} onPress={this.forward}></Icon>
+                <Icon name={muted ? 'volume-off' : 'volume-up'} size={30} style={styles.iconMute} color="#fff" onPress={() => this.setState({muted: !muted})}></Icon>
               </View> : <View style={styles.overlaySet}>
                 <TouchableNativeFeedback onPress={this.youtubeSeekLeft}><View style={{ flex: 1 }}></View></TouchableNativeFeedback>
                 <TouchableNativeFeedback onPress={this.youtubeSeekRight}><View style={{ flex: 1 }}></View></TouchableNativeFeedback>
@@ -75,5 +79,10 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     textAlignVertical: 'center',
     fontSize: 25
+  },
+  iconMute: {
+    paddingTop: 10,
+    paddingRight: 10,
+    position: 'absolute'
   }
 })
