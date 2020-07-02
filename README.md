@@ -11,3 +11,7 @@
   https://www.npmjs.com/package/react-native-orientation
 6. Slider
   https://github.com/react-native-community/react-native-slider
+  
+Consult from video
+https://www.youtube.com/watch?v=rCxIvGGhb7k&list=LLGlIoXfPqNVxz_giB74lBOQ&index=3&t=0s
+https://www.youtube.com/watch?v=5Id_ZHw3aKI&t=314s
