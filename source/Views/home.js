@@ -18,11 +18,12 @@ export default class Home extends React.Component {
       paused: false,
       overlay: false,
       muted: false,
+      fullScreen: false,
     };
   }
 
   render = () => {
-    const {paused, overlay, muted} = this.state;
+    const {paused, overlay, muted, fullScreen} = this.state;
     return (
       <View style={styles.container}>
         <View style={{width, height: width * .6, backgroundColor: 'black'}}>
@@ -33,6 +34,7 @@ export default class Home extends React.Component {
             resizeMode='cover'
             paused={paused}
             muted={muted}
+            fullscreen={fullScreen}
             onLoad={this.load}
             onProgress={this.progress}
           />
@@ -43,6 +45,14 @@ export default class Home extends React.Component {
                 <Icon name={paused ? 'play' : 'pause'} style={styles.icon} onPress={() => this.setState({paused: !paused})}></Icon>
                 <Icon name='forward' style={styles.icon} onPress={this.forward}></Icon>
                 <Icon name={muted ? 'volume-off' : 'volume-up'} size={30} style={styles.iconMute} color="#fff" onPress={() => this.setState({muted: !muted})}></Icon>
+                <View  style={styles.sliderCont}>
+                  <View style={styles.timer}>
+                    <Text style={{color: 'white'}}>00:00:00</Text>
+                    <Text style={{color: 'white'}}>00:00:00
+                      <Icon name={'expand'} style={{fontSize: 15}}></Icon>
+                    </Text>
+                  </View>
+                </View>
               </View> : <View style={styles.overlaySet}>
                 <TouchableNativeFeedback onPress={this.youtubeSeekLeft}><View style={{ flex: 1 }}></View></TouchableNativeFeedback>
                 <TouchableNativeFeedback onPress={this.youtubeSeekRight}><View style={{ flex: 1 }}></View></TouchableNativeFeedback>
@@ -84,5 +94,27 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     paddingRight: 10,
     position: 'absolute'
+  },
+  sliderCont: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    bottom: 0
+  },
+  timer: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: 5
+  },
+  video: {
+    width,
+    height: width * .6,
+    backgroundColor: 'black'
+  },
+  fullscreenVideo: {
+    backgroundColor: 'black',
+    ...StyleSheet.absoluteFill,
+    elevation: 1
   }
 })
