@@ -7,3 +7,7 @@
   https://reactnative.dev/docs/safeareaview
 4. Icon
   https://aboutreact.com/react-native-vector-icons/
+5. React Native Orientation for fullscreen
+  https://www.npmjs.com/package/react-native-orientation
+6. Slider
+  https://github.com/react-native-community/react-native-slider
