@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import Video from 'react-native-video';
 import Icon from 'react-native-vector-icons/FontAwesome';
-// import { TouchableNativeFeedback } from 'react-native-gesture-handler';
+import Slider from '@react-native-community/slider';
 
 const { width } = Dimensions.get('window');
 export default class Home extends React.Component {
@@ -18,12 +18,17 @@ export default class Home extends React.Component {
       paused: false,
       overlay: false,
       muted: false,
-      fullScreen: false,
+      fullscreen: false,
     };
   }
 
+  fullscreen = () => {
+    const { fullscreen } = this.state;
+    this.setState({ fullscreen: ! fullscreen})
+  }
+
   render = () => {
-    const {paused, overlay, muted, fullScreen} = this.state;
+    const {paused, overlay, muted, fullscreen} = this.state;
     return (
       <View style={styles.container}>
         <View style={{width, height: width * .6, backgroundColor: 'black'}}>
@@ -34,7 +39,7 @@ export default class Home extends React.Component {
             resizeMode='cover'
             paused={paused}
             muted={muted}
-            fullscreen={fullScreen}
+            fullscreen={fullscreen}
             onLoad={this.load}
             onProgress={this.progress}
           />
@@ -48,10 +53,14 @@ export default class Home extends React.Component {
                 <View  style={styles.sliderCont}>
                   <View style={styles.timer}>
                     <Text style={{color: 'white'}}>00:00:00</Text>
-                    <Text style={{color: 'white'}}>00:00:00
-                      <Icon name={'expand'} style={{fontSize: 15}}></Icon>
+                    <Text style={{color: 'white'}}>00:00:00   <Icon onPress={this.fullscreen} name={fullscreen ? 'compress' : 'expand'} style={{fontSize: 15}}></Icon>
                     </Text>
                   </View>
+                  <Slider
+                    maximumTrackTintColor='white'
+                    minimumTrackTintColor='white'
+                    thumbTintColor='white'
+                  ></Slider>
                 </View>
               </View> : <View style={styles.overlaySet}>
                 <TouchableNativeFeedback onPress={this.youtubeSeekLeft}><View style={{ flex: 1 }}></View></TouchableNativeFeedback>
