@@ -9,6 +9,7 @@ import {
 import Video from 'react-native-video';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Slider from '@react-native-community/slider';
+import Orientation from 'react-native-orientation';
 
 const { width } = Dimensions.get('window');
 export default class Home extends React.Component {
@@ -24,6 +25,11 @@ export default class Home extends React.Component {
 
   fullscreen = () => {
     const { fullscreen } = this.state;
+    if(fullscreen) {
+      Orientation.lockToPortrait();
+    } else {
+      Orientation.lockToLandscape();
+    }
     this.setState({ fullscreen: ! fullscreen})
   }
 
@@ -31,7 +37,7 @@ export default class Home extends React.Component {
     const {paused, overlay, muted, fullscreen} = this.state;
     return (
       <View style={styles.container}>
-        <View style={{width, height: width * .6, backgroundColor: 'black'}}>
+        <View style={fullscreen ? styles.fullscreenVideo : styles.video}>
           <Video
             ref={ref => this.video = ref}
             source={{uri: "https://vjs.zencdn.net/v/oceans.mp4"}}   // Can be a URL or a local file.
@@ -53,7 +59,7 @@ export default class Home extends React.Component {
                 <View  style={styles.sliderCont}>
                   <View style={styles.timer}>
                     <Text style={{color: 'white'}}>00:00:00</Text>
-                    <Text style={{color: 'white'}}>00:00:00   <Icon onPress={this.fullscreen} name={fullscreen ? 'compress' : 'expand'} style={{fontSize: 15}}></Icon>
+                    <Text style={{color: 'white'}}>00:00:00  <Icon onPress={this.fullscreen} name={fullscreen ? 'compress' : 'expand'} style={{fontSize: 15}}></Icon>
                     </Text>
                   </View>
                   <Slider
