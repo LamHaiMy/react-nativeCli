@@ -20,7 +20,25 @@ export default class Home extends React.Component {
       overlay: false,
       muted: false,
       fullscreen: false,
+      currentTime: 0,
+      duration: 0.1,
     };
+  }
+
+  lastTap = null;
+  // if i click single tap it will show overlay otherwise it work like youtube
+  handleDoubleTab = (doubleTabCallback, singleTapCallback) => {
+    const now = Date.now();
+    const DOUBLE_PRESS_DELAY = 300;
+    if(this.lastTap && (now - this.lastTap) < DOUBLE_PRESS_DELAY) {
+      clearTimeout(this.timer);
+      doubleTabCallback();
+    } else {
+      this.lastTap = now;
+      this.timer = setTimeout(() => {
+        singleTapCallback();
+      }, DOUBLE_PRESS_DELAY);
+    }
   }
 
   fullscreen = () => {
@@ -33,8 +51,57 @@ export default class Home extends React.Component {
     this.setState({ fullscreen: ! fullscreen})
   }
 
+  getTime = t => {
+    const digit = n => n < 10 ? `0${n}` : `${n}`;
+    const sec = digit(Math.floor(t % 60));
+    const min = digit(Math.floor((t/60) % 60));
+    const hr = digit(Math.floor((t/3600) % 60));
+    return hr + ':' + min + ':' + sec;
+  }
+
+  load = ({ duration }) => this.setState({duration}) // the duration is update on load video
+
+  progress = ({ currentTime }) => this.setState({ currentTime }) // the current time is updated
+
+  backward = () => {
+    this.video.seek(this.state.currentTime - 5);
+    clearTimeout(this.overlayTimer);
+    this.overlayTimer = setTimeout(() => this.setState({ overlay: false }), 3000);
+  }
+
+  forward = () => {
+    this.video.seek(this.state.currentTime + 5);
+    clearTimeout(this.overlayTimer);
+    this.overlayTimer = setTimeout(() => this.setState({ overlay: false }), 3000);
+  }
+
+  onslide = slide => {
+    this.video.seek(slide * this.state.duration);
+    clearTimeout(this.overlayTimer);
+    this.overlayTimer = setTimeout(() => this.setState({ overlay: false }), 3000);
+  }
+
+  youtubeSeekLeft = () => {
+    const { currentTime } = this.state;
+    this.handleDoubleTab(() => {
+      this.video.seek(currentTime - 5);
+    }, () => {
+      this.setState({overlay: true});
+      this.overlayTimer = setTimeout(() => this.setState({ overlay: false}), 3000);
+    })
+  }
+  youtubeSeekRight = () => {
+    const { currentTime } = this.state;
+    this.handleDoubleTab(() => {
+      this.video.seek(currentTime + 5);
+    }, () => {
+      this.setState({overlay: true});
+      this.overlayTimer = setTimeout(() => this.setState({ overlay: false}), 3000);
+    })
+  }
+
   render = () => {
-    const {paused, overlay, muted, fullscreen} = this.state;
+    const {paused, overlay, muted, fullscreen, currentTime, duration} = this.state;
     return (
       <View style={styles.container}>
         <View style={fullscreen ? styles.fullscreenVideo : styles.video}>
@@ -51,21 +118,23 @@ export default class Home extends React.Component {
           />
           <View style={styles.overlay}>
             {
-              !overlay ? <View style={{...styles.overlaySet, backgroundColor: '#0006'}}>
+              overlay ? <View style={{...styles.overlaySet, backgroundColor: '#0006'}}>
                 <Icon name='backward' style={styles.icon} onPress={this.backward}></Icon>
                 <Icon name={paused ? 'play' : 'pause'} style={styles.icon} onPress={() => this.setState({paused: !paused})}></Icon>
                 <Icon name='forward' style={styles.icon} onPress={this.forward}></Icon>
                 <Icon name={muted ? 'volume-off' : 'volume-up'} size={30} style={styles.iconMute} color="#fff" onPress={() => this.setState({muted: !muted})}></Icon>
                 <View  style={styles.sliderCont}>
                   <View style={styles.timer}>
-                    <Text style={{color: 'white'}}>00:00:00</Text>
-                    <Text style={{color: 'white'}}>00:00:00  <Icon onPress={this.fullscreen} name={fullscreen ? 'compress' : 'expand'} style={{fontSize: 15}}></Icon>
+                    <Text style={{color: 'white'}}>{this.getTime(currentTime)}</Text>
+                    <Text style={{color: 'white'}}>{this.getTime(duration)}  <Icon onPress={this.fullscreen} name={fullscreen ? 'compress' : 'expand'} style={{fontSize: 15}}></Icon>
                     </Text>
                   </View>
                   <Slider
                     maximumTrackTintColor='white'
                     minimumTrackTintColor='white'
                     thumbTintColor='white'
+                    value={currentTime / duration}
+                    onValueChange={this.onslide}
                   ></Slider>
                 </View>
               </View> : <View style={styles.overlaySet}>
