@@ -9,4 +9,4 @@ import AutoPlayVideoScrollView from './source/Views/AutoPlayVideoScrollView'
 import FlatlistHorizontalScroll from './source/Views/FlatlistHorizontalScroll'
 import {name as appName} from './app.json';
 
-AppRegistry.registerComponent(appName, () => FlatlistHorizontalScroll);
+AppRegistry.registerComponent(appName, () => App);

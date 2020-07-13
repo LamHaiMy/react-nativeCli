@@ -27,6 +27,7 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 import Video from 'react-native-video';
+import Flatlist from './source/Views/FlatlistHorizontalScroll'
 
 const { width } = Dimensions.get('window');
 
@@ -36,10 +37,12 @@ const App: () => React$Node = () => {
   const image = { uri: "https://reactjs.org/logo-og.png" };
   return (
     <>
+    {/* <StatusBar translucent backgroundColor="transparent" /> */}
       <StatusBar barStyle="dark-content" />
       <SafeAreaView style={styles.body} >
         <View style={styles.container}>
           <ScrollView contentInsetAdjustmentBehavior="automatic">
+          <Flatlist></Flatlist>
             {/* Address and search */}
             <View style={styles.session}>
               <View style={styles.rowComponent}>
