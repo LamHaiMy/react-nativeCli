@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import React, {useRef} from 'react';
+import React from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -17,26 +17,87 @@ import {
   TextInput,
   ImageBackground,
   Dimensions,
-  TouchableOpacity,
 } from 'react-native';
-import { createStore } from 'redux';
-import { Provider } from 'react-redux';
-import ListItems from './source/Views/ListItems'
+
+import {
+  Header,
+  LearnMoreLinks,
+  Colors,
+  DebugInstructions,
+  ReloadInstructions,
+} from 'react-native/Libraries/NewAppScreen';
+import Video from 'react-native-video';
+import Flatlist from './source/Views/FlatlistHorizontalScroll'
+
 const { width } = Dimensions.get('window');
 
 const App: () => React$Node = () => {
   const [value, onChangeText] = React.useState('Useless Placeholder');
   const handlePess = () => console.log("Text press");
-  const inputRef = React.createRef(null);
-
+  const image = { uri: "https://reactjs.org/logo-og.png" };
   return (
     <>
     {/* <StatusBar translucent backgroundColor="transparent" /> */}
       <StatusBar barStyle="dark-content" />
       <SafeAreaView style={styles.body} >
-        <Provider store={store}>
-          <ListItems></ListItems>
-        </Provider>
+        <View style={styles.container}>
+          <ScrollView contentInsetAdjustmentBehavior="automatic">
+          <Flatlist></Flatlist>
+            {/* Address and search */}
+            <View style={styles.session}>
+              <View style={styles.rowComponent}>
+                <View>
+                  <Text>Address</Text>
+                </View>
+                <View>
+                  <Text>Icon</Text>
+                </View>
+              </View>
+              <View style={styles.searchBox}>
+              <TextInput
+                style={{ height: 40, borderColor: 'gray', borderWidth: 1, width: "100%" }}
+                onChangeText={text => onChangeText(text)}
+                value={value}
+              />
+              </View>
+            </View>
+            {/* Slider show image */}
+            <View style={styles.session}>
+              <View style={styles.cardItem}>
+                <ImageBackground source={require('./source/assets/Images/banner.jpg')} style={styles.styleImg}>
+                  <Text style={styles.titleLabel}>Chào bạn mới</Text>
+                  <Text style={styles.exampleCoupon}>* Áp dụng cho nhà hàng trong chương trình</Text>
+                </ImageBackground>
+                <View>
+                  <Text>See more</Text>
+                </View>
+              </View>
+            </View>
+            {/* Category item */}
+            <View style={styles.session}>
+              <Video
+                source={{uri: "https://vjs.zencdn.net/v/oceans.mp4"}}   // Can be a URL or a local file.
+                style={styles.backgroundVideo}
+                controls={true} // Show control
+                repeat={false} //Determine whether to repeat the video when the end is reached
+                poster="https://baconmockup.com/300/200/"
+                posterResizeMode="cover"
+              />
+            </View>
+            {/* Coupon free */}
+            <View style={{ width, height: width * .6, backgroundColor: 'black'}}>
+              <Video
+              ></Video>
+            </View>
+            {/* List today favorite*/}
+            <View style={styles.session}></View>
+            {/* List item */}
+            <View style={styles.session}></View>
+            <View style={styles.session}>
+
+            </View>
+          </ScrollView>
+        </View>
       </SafeAreaView>
     </>
   );
@@ -46,81 +107,41 @@ const styles = StyleSheet.create({
   body: {
     flex: 1,
   },
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    paddingLeft: 16,
+    paddingRight: 16,
+  },
+  session: {
+    flex: 1,
+    marginTop: 10,
+    marginBottom: 10
+  },
+  rowComponent: {
+    flexDirection: "row",
+    justifyContent: "space-between"
+  },
+  searchBox: {
+    justifyContent: "center",
+    alignContent: "center",
+    alignItems: "center"
+  },
+  cardItem: {
+    backgroundColor: "#f2f2f2",
+    height: 150,
+    borderRadius: 10
+  },
+  styleImg: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "center"
+  },
+  backgroundVideo: {
+    backgroundColor: "#fff",
+    width: "100%",
+    height: 200
+  }
 });
-const defaulState = {
-  listItem: [
-    {
-      id: 1,
-      imageUrl: 'https://homepages.cae.wisc.edu/~ece533/images/airplane.png',
-      productName: 'ABC product',
-      subTitle: ' limited sub',
-      detailLink: 'link detail'
-    },
-    {
-      id: 2,
-      imageUrl: 'https://homepages.cae.wisc.edu/~ece533/images/arctichare.png',
-      productName: 'ABC product',
-      subTitle: ' limited sub',
-      detailLink: 'link detail'
-    },
-    {
-      id: 3,
-      imageUrl: 'https://homepages.cae.wisc.edu/~ece533/images/boat.png',
-      productName: 'ABC product',
-      subTitle: ' limited sub',
-      detailLink: 'link detail'
-    },
-    {
-      id: 4,
-      imageUrl: 'https://www.gstatic.com/webp/gallery/1.jpg',
-      productName: 'ABC product',
-      subTitle: ' limited sub',
-      detailLink: 'link detail'
-    },
-    {
-      id: 5,
-      imageUrl: 'https://homepages.cae.wisc.edu/~ece533/images/pool.png',
-      productName: 'ABC product',
-      subTitle: ' limited sub',
-      detailLink: 'link detail'
-    },
-    {
-      id: 6,
-      imageUrl: 'https://www.gstatic.com/webp/gallery/5.jpg',
-      productName: 'ABC product',
-      subTitle: ' limited sub',
-      detailLink: 'link detail'
-    },
-    {
-      id: 7,
-      imageUrl: 'https://www.gstatic.com/webp/gallery/4.jpg',
-      productName: 'ABC product',
-      subTitle: ' limited sub',
-      detailLink: 'link detail'
-    },
-    {
-      id: 8,
-      imageUrl: 'https://www.gstatic.com/webp/gallery/1.jpg',
-      productName: 'ABC product',
-      subTitle: ' limited sub',
-      detailLink: 'link detail'
-    },
-    {
-      id: 9,
-      imageUrl: 'https://www.gstatic.com/webp/gallery/3.jpg',
-      productName: 'ABC product',
-      subTitle: ' limited sub',
-      detailLink: 'link detail'
-    },
-  ],
-  testText: 'Là lá la con ma',
-};
-const reducer = (state = defaulState, action) => {
-  // if(action.type === CHANGE) return {value: state.value + 1}
-  return state;
-};
 
-const store = createStore(reducer);
-
-const myState = store.getState();
 export default App;
