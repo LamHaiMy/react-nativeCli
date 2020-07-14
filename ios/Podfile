@@ -83,6 +83,10 @@ target 'ReactNativeCliPr' do
 
   pod 'react-native-orientation', :path => '../node_modules/react-native-orientation'
 
+  pod 'RNReanimated', :path => '../node_modules/react-native-reanimated'
+
+  pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
+
   target 'ReactNativeCliPrTests' do
     inherit! :complete
     # Pods for testing
