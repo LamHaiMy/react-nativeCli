@@ -16,5 +16,8 @@ Consult from video
 https://www.youtube.com/watch?v=rCxIvGGhb7k&list=LLGlIoXfPqNVxz_giB74lBOQ&index=3&t=0s
 https://www.youtube.com/watch?v=5Id_ZHw3aKI&t=314s
 
+* **install node module**
+npm i
+
 * **Run app emulation**
 npx react-native run-android
