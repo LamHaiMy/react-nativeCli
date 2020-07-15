@@ -241,6 +241,15 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     borderColor: '#5da458',
     borderWidth: 2,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 1,
+      height: -19
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 5,
+    elevation: 5,
+    backgroundColor: 'white'
   },
   content: {
     marginTop: 80,
@@ -254,10 +263,10 @@ const styles = StyleSheet.create({
   itemImg: {
     margin: 20,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   imageAction: {
-    marginTop: 50
+    marginTop: 50,
   },
   bageAction: {
     width: 13,
