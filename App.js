@@ -27,23 +27,18 @@ const App: () => React$Node = () => {
     {/* <StatusBar translucent backgroundColor="transparent" /> */}
       <StatusBar barStyle="dark-content" />
       <SafeAreaView style={styles.body} >
-        
+
         <ScrollView>
           <ImageBackground source={require('./source/assets/Images/background.png')} resizeMode='cover'  style={styles.backgroundImage} >
             {/* header */}
             <View style={styles.header}>
               <View style={styles.row}>
-                <Icon name='arrow-left' style={styles.icon}></Icon>
-                <Text style={styles.headerText}>Profile</Text>
+                <Icon name='bars' style={styles.icon}></Icon>
               </View>
               <View style={styles.row}>
-                <View>
-                  <View style={styles.bageSmall}></View>
-                  <Icon name='bell' style={styles.iconBell}></Icon>
-                </View>
-                <Icon name='bars' style={styles.iconMenu}></Icon>
+                <Text style={styles.headerText}>Đăng xuất</Text>
               </View>
-              
+
             </View>
             <View>
               <View style={[styles.backgroundContent, styles.marginTop80]}>
@@ -152,20 +147,8 @@ const styles = StyleSheet.create({
     color: 'white'
   },
   icon: {
-    fontSize: 18,
+    fontSize: 25,
     color: 'white'
-  },
-  iconBell: {
-    fontSize: 16,
-    color: 'white',
-    paddingRight: 55,
-  },
-  iconMenu: {
-    fontSize: 36,
-    color: 'white',
-    position: 'absolute',
-    right: 0,
-    top: -25
   },
   centeredView: {
     flex: 1,
@@ -215,9 +198,6 @@ const styles = StyleSheet.create({
   marginTop20: {
     marginTop: 20,
   },
-  marginTop10: {
-    marginTop: 10,
-  },
   marginTop80: {
     marginTop: 80,
   },
@@ -228,7 +208,7 @@ const styles = StyleSheet.create({
   },
   backgroundContent: {
     backgroundColor: 'white',
-    marginLeft: 16, 
+    marginLeft: 16,
     marginRight: 16,
     marginBottom: 20,
     borderRadius: 10,
@@ -282,7 +262,7 @@ const styles = StyleSheet.create({
   bageAction: {
     width: 13,
     height: 13,
-    backgroundColor: 'red', 
+    backgroundColor: 'red',
     borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'center',
@@ -293,13 +273,6 @@ const styles = StyleSheet.create({
   colorWhite: {
     color: 'white'
   },
-  bageSmall: {
-    width: 6,
-    height: 6,
-    backgroundColor: 'red',
-    position: 'absolute',
-    left: 10
-  }
 });
 
 export default App;
